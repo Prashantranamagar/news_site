@@ -1,0 +1,130 @@
+{% extends 'back/master.html' %}
+{% load static %}
+
+{% block headblock %}
+
+    <script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+
+
+{% endblock %}
+
+{% block content %}
+                     <!-- Page content -->
+                    <div id="page-content">
+                        <!-- Forms General Header -->
+                        <div class="content-header">
+                            <div class="header-section">
+                                <h1>
+                                    <i class="gi gi-notes_2"></i>Add News<br><small>You can add new news here.</small>
+                                </h1>
+                            </div>
+                        </div>
+                        <ul class="breadcrumb breadcrumb-top">
+                            <li>News</li>
+                            <li><a href="">Add</a></li>
+                        </ul>
+                        <!-- END Forms General Header -->
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- Basic Form Elements Block -->
+                                <div class="block">
+                                    <!-- Basic Form Elements Title -->
+                                    <div class="block-title">
+                                        <div class="block-options pull-right">
+                                            <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default toggle-bordered enable-tooltip" data-toggle="button" title="Toggles .form-bordered class">News</a>
+                                        </div>
+                                        <h2><strong>Add</strong> News</h2>
+                                    </div>
+                                    <!-- END Form Elements Title -->
+
+                                    <!-- Basic Form Elements Content -->
+                                    <form action="{% url 'addnews' %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                                      {% csrf_token %}
+                                        <div class="form-group">
+                                            <div class="col-md-6">
+                                                <input type="text" id="newstitle" name="newstitle" class="form-control" placeholder="Title">
+                                            </div>
+                                    
+
+                                            <div class="col-md-6">
+                                                <select id="newscategory" name="newscategory" class="select-chosen" data-placeholder="Choose a category." style="width: 250px; display: none;">
+
+                                                    {% for i in category%}
+                                                    <option value="{{i.pk}}">{{i.catname}} | {{i.name}}</option>
+                                                    {% endfor %}
+                                                                                                            
+                                                </select> 
+                                           	</div>
+
+
+                                        </div>
+
+                                        <div class="form-group">
+
+                                            <div class="col-md-12">
+                                                <textarea type="text" id="newsshorttxt" name="newsshorttxt" class="form-control" placeholder="Shorttxt"></textarea>
+                                            </div>
+                                            
+                                        </div>
+
+                                        <script>
+                                            CKEDITOR.replace(newsshorttxt)
+                                        </script>
+
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <textarea type="email" id="newsbodytxt" name="newsbodytxt" class="form-control" placeholder="bodytxt"></textarea>
+                                            </div>
+                                            
+                                        </div>
+
+                                        <script>
+                                            CKEDITOR.replace(newsbodytxt)
+                                        </script>
+
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <input type="file" id="myfile" name="myfile" class="form-control" p></input>
+                                            </div>
+                                            
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Submit</button>
+                                                
+                                            </div>
+                                            
+                                        </div>
+
+                                 
+                                    </form>
+                                    <!-- END Basic Form Elements Content -->
+                                </div>
+                                <!-- END Basic Form Elements Block -->
+                            </div>
+                           
+                        </div>
+
+                
+                    </div>
+                    <!-- END Page Content -->
+
+
+{% endblock %}
+
+{% block footer %}
+
+        <!-- jQuery, Bootstrap.js, jQuery plugins and Custom JS code -->
+        <script src="js/vendor/jquery.min.js"></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/app.js"></script>
+
+        <!-- ckeditor.js, load it only in the page you would like to use CKEditor (it's a heavy plugin to include it with the others!) -->
+        <script src="js/helpers/ckeditor/ckeditor.js"></script>
+
+{% endblock %}

@@ -1,0 +1,124 @@
+{% extends 'back/master.html' %}
+{% load static %}
+{% block content %}
+
+
+
+                    <!-- Page content -->
+                    <div id="page-content">
+                        <!-- Datatables Header -->
+                        <div class="content-header">
+                            <div class="header-section">
+                                <h1>
+                                    <i class="fa fa-table"></i>News List<br><small>You can edit and manage news list here.</small>
+                                </h1>
+                            </div>
+                        </div>
+                        <ul class="breadcrumb breadcrumb-top">
+                            <li>News</li>
+                            <li><a href="">Newslist</a></li>
+                        </ul>
+                        <!-- END Datatables Header -->
+
+                        <!-- Datatables Content -->
+                        <div class="block full">
+                            <div class="block-title">
+                                <h2><strong>News</strong> List</h2>
+                            </div>
+                           
+                            <div class="table-responsive">
+                                <table id="" class="table table-vcenter table-condensed table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">ID</th>
+                                            
+                                            <th>Image</th>
+                                            <th>Title</th>
+                                            <th>Date</th>
+                                            <th>Category</th>
+                                            <th>Writer</th>
+                                            <th>Status</th>
+
+                                            <th>View</th>
+
+                                            <th class="text-center">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for j in news %}
+                                        <tr>
+                                            <td class="text-center">{{j.pk}}</td>
+                                            <td class="text-center"><img style='display:inline-block; width:50px;height:50px;'src="{{j.picurl}}" alt="avatar" class="img-circle"></td>
+                                            <td class="text-center">{{j.name}}</td>
+                                            <td class="text-center">{{j.date}} | {{j.time}} </td>
+                                            <td class="text-center">{{j.catname}}</td>
+                                            <td class="text-center">{{j.writer}}</td>
+                                            {% if j.act == 0 %}
+                                            <td class="text-center "> <button class="btn btn-xs btn-warning">Unpublished</button> </td>
+                                            {% else %}
+                                            <td class="text-center"><button class="btn btn-xs btn-info">Published</button></td>
+                                            {% endif %}
+                                            <td class="text-center">{{j.show}}</td>
+                                            <td class="text-center">
+                                                <div class="btn-group">
+
+                                                    <a href="{% url 'newsedit' j.pk %}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil">edit</i></a>
+                                                    <a href="{% url 'newsdelete' j.pk %}" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger" onclick="return confirm('Are u sure?')" ><i class="fa fa-times">delete</i></a>
+                                                    {% if perms.main.masteruser %}
+                                                    {% if j.act == 0%}
+                                                    <a href="{% url 'newspublish' j.pk %}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil">Pusblish</i></a>
+                                                    {% else %}
+                                                    <a href="{% url 'newsunpublish' j.pk %}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil">UnPusblish</i></a>
+                                                    {% endif %}
+                                                    {% endif %}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                      {% endfor %}
+
+
+                                    </tbody>
+
+                                </table>
+                                Page {{news.number}} from {{news.paginator.num_pages}}
+                                <br></br>
+
+                                {% if news.has_previous %}
+                                <a href="?page={{news.previous_page_number}}" data-toggle="tooltip" title="previous" class="btn btn-xs btn-default">previous</a>
+                                {% endif %}
+
+
+                                {% for i in news.paginator.page_range %}
+                                {% if news.number == i %}
+                                    <a href="#" onclick="return false;" data-toggle="tooltip" title="{{Disables}}" class="btn btn-xs btn-default"> {{i}}</a>
+                                {% else %}
+                                    <a href="?page={{i}}" data-toggle="tooltip" title="{{i}}" class="btn btn-xs btn-default"> {{i}}</a>
+                                {% endif %}
+                                {% endfor %}
+
+
+                                {% if news.has_next %}
+                                <a href="?page={{news.next_page_number}}" data-toggle="tooltip" title="next" class="btn btn-xs btn-default">next</a>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                        <!-- END Datatables Content -->
+                    </div>
+                    <!-- END Page Content -->
+
+
+{% endblock %}
+
+{% block footer %}
+
+        <!-- jQuery, Bootstrap.js, jQuery plugins and Custom JS code -->
+        <script src="js/vendor/jquery.min.js"></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/app.js"></script>
+
+        <!-- ckeditor.js, load it only in the page you would like to use CKEditor (it's a heavy plugin to include it with the others!) -->
+        <script src="js/helpers/ckeditor/ckeditor.js"></script>
+{% endblock %}
+

@@ -1,0 +1,144 @@
+{% extends 'back/master.html' %}
+{% load static %}
+
+{% block headblock %}
+
+    <script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+
+
+{% endblock %}
+
+{% block content %}
+                     <!-- Page content -->
+                    <div id="page-content">
+                        <!-- Forms General Header -->
+                        <div class="content-header">
+                            <div class="header-section">
+                                <h1>
+                                    <i class="gi gi-notes_2"></i>Settings<br><small>You can add new news here.</small>
+                                </h1>
+                            </div>
+                        </div>
+                        <ul class="breadcrumb breadcrumb-top">
+                            <li>Settings</li>
+                            <li><a href="">Site</a></li>
+                        </ul>
+                        <!-- END Forms General Header -->
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- Basic Form Elements Block -->
+                                <div class="block">
+                                    <!-- Basic Form Elements Title -->
+                                    <div class="block-title">
+                                        <div class="block-options pull-right">
+                                            <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default toggle-bordered enable-tooltip" data-toggle="button" title="Toggles .form-bordered class">Settings</a>
+                                        </div>
+                                        <h2><strong>Site</strong> Settings</h2>
+                                    </div>
+                                    <!-- END Form Elements Title -->
+
+                                    <!-- Basic Form Elements Content -->
+                                    <form action="{% url 'sitesettings' %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                                      {% csrf_token %}
+                                        <div class="form-group">
+                                            <div class="col-md-6">
+                                                <input type="text" id="sitename" name="sitename" value="{{site.name}}" class="form-control" placeholder="Site Name">
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <input type="text" id="sitetell" name="sitetell" value="{{site.tel}}" class="form-control" placeholder="Site Tell">
+                                            </div>
+
+                                        </div>
+                                        
+                                        
+
+
+
+                                        <div class="form-group">    
+
+                                            <div class="col-md-6">
+                                                <input type="text" id="fb" name="fb" value="{{site.fb}}" class="form-control" placeholder="FB">
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <input type="text" id="tw" name="tw" value="{{site.tw}}" class="form-control" placeholder="Tw">
+                                            </div>
+
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <div class="col-md-6">
+                                                <input type="text" id="link" name="link" value="{{site.link}}" class="form-control" placeholder="Link">
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+
+                                            <div class="col-md-12">
+                                                <textarea type="" id="about" name="about" class="form-control" placeholder="About">{{site.about}}</textarea>
+                                            </div>
+                                            
+                                        </div>
+
+                                        <script>
+                                            CKEDITOR.replace(about)
+                                        </script>
+
+
+                                        <div class="form-group">
+                                            <div class="col-md-6">
+                                                <input type="file" id="myfile" name="myfile"  class="form-control" ></input>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <img src='{{site.picurl}}' style='display:inline-block; width:50px;height:50px;'>
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                       
+
+                                        
+
+
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Submit</button>
+                                                
+                                            </div>
+                                            
+                                        </div>
+
+                                 
+                                    </form>
+                                    <!-- END Basic Form Elements Content -->
+                                </div>
+                                <!-- END Basic Form Elements Block -->
+                            </div>
+                           
+                        </div>
+
+                
+                    </div>
+                    <!-- END Page Content -->
+
+
+{% endblock %}
+
+{% block footer %}
+
+        <!-- jQuery, Bootstrap.js, jQuery plugins and Custom JS code -->
+        <script src="js/vendor/jquery.min.js"></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/app.js"></script>
+
+        <!-- ckeditor.js, load it only in the page you would like to use CKEditor (it's a heavy plugin to include it with the others!) -->
+        <script src="js/helpers/ckeditor/ckeditor.js"></script>
+
+{% endblock %}

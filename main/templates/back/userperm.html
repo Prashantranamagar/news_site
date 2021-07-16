@@ -1,0 +1,139 @@
+{% extends 'back/master.html' %}
+{% load static %}
+{% block content %}
+
+
+
+                    <!-- Page content -->
+                    <div id="page-content">
+                        <!-- Datatables Header -->
+                        <div class="content-header">
+                            <div class="header-section">
+                                <h1>
+                                    <i class="fa fa-table"></i>User Perms<br><small>You can edit and manage perms here.</small>
+                                </h1>
+                            </div>
+                        </div>
+                        <ul class="breadcrumb breadcrumb-top">
+                            <li>User</li>
+                            <li><a href="">Perms</a></li>
+                        </ul>
+                        <!-- END Datatables Header -->
+
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- Basic Form Elements Block -->
+                                <div class="block">
+                                    <!-- Basic Form Elements Title -->
+                                    <div class="block-title">
+                                        <div class="block-options pull-right">
+                                            <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default toggle-bordered enable-tooltip" data-toggle="button" title="Toggles .form-bordered class">Perms</a>
+                                        </div>
+                                        <h2><strong>Add User</strong> to Perms</h2>
+                                    </div>
+                                    <!-- END Form Elements Title -->
+
+                                    <!-- Basic Form Elements Content -->
+                                    <form action="{% url 'adduserperm' pk %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                                      {% csrf_token %}
+
+                                     
+
+                                        <div class="form-group">
+                                            <div class="col-md-6">
+                                                <select id="pname" name="pname" class="select-chosen" data-placeholder="Choose a Group" style="width: 250px; display: none;">
+
+                                                    {% for i in perms %}
+                                                    <option value="{{i.name}}">{{i.name}}</option>
+                                                    {% endfor %}
+                                                    
+                                                </select>
+                                            </div>
+                                            </div>
+                                    
+
+                                            
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Submit</button>
+                                                
+                                            </div>
+                                            
+                                        </div>
+
+                                 
+                                    </form>
+                                    <!-- END Basic Form Elements Content -->
+                                </div>
+                                <!-- END Basic Form Elements Block -->
+                            </div>
+                        
+                        
+
+
+
+
+                        <!-- Datatables Content -->
+                        <div class="block full">
+                            <div class="block-title">
+                                <h2><strong>Perms</strong> List</h2>
+                            </div>
+                           
+                            <div class="table-responsive">
+                                <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
+                                    <thead>
+                                        <tr>
+                                            
+                                            <th>Name</th>
+
+                                            
+                                        
+
+                                            <th class="text-center">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for j in uperms %}
+                                        <tr>
+                                            
+                                            <td class="text-center">{{j}}</td>
+                                                <td class="text-center">
+                                                <div class="btn-group">
+
+                                                    
+                                                    <a href="{% url 'deluserperm' pk=pk name=j %}" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger" onclick="return confirm('Are u sure?')"><i class="fa fa-times">delete</i></a>
+
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                      {% endfor %}
+
+
+                                    </tbody>
+
+                                </table>
+                                <div class="row"><div class="col-sm-5 hidden-xs"><div class="dataTables_info" id="example-datatable_info" role="status" aria-live="polite"><strong>1</strong>-<strong>10</strong> of <strong>60</strong></div></div><div class="col-sm-7 col-xs-12 clearfix"><div class="dataTables_paginate paging_bootstrap" id="example-datatable_paginate"><ul class="pagination pagination-sm remove-margin"><li class="prev disabled"><a href="javascript:void(0)"><i class="fa fa-chevron-left"></i> </a></li><li class="active"><a href="javascript:void(0)">1</a></li><li><a href="javascript:void(0)">2</a></li><li><a href="javascript:void(0)">3</a></li><li><a href="javascript:void(0)">4</a></li><li><a href="javascript:void(0)">5</a></li><li class="next"><a href="javascript:void(0)"> <i class="fa fa-chevron-right"></i></a></li></ul></div></div></div>
+                            </div>
+                        </div>
+                        <!-- END Datatables Content -->
+                    </div>
+                    <!-- END Page Content -->
+
+
+{% endblock %}
+
+{% block footer %}
+
+        <!-- jQuery, Bootstrap.js, jQuery plugins and Custom JS code -->
+        <script src="js/vendor/jquery.min.js"></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/app.js"></script>
+
+        <!-- ckeditor.js, load it only in the page you would like to use CKEditor (it's a heavy plugin to include it with the others!) -->
+        <script src="js/helpers/ckeditor/ckeditor.js"></script>
+{% endblock %}
+
